@@ -2,6 +2,17 @@ const std = @import("std");
 
 pub const Vec3 = struct {
     n: [3]f64,
+
+    pub fn x(self: Vec3) f64 {
+        return self.n[0];
+    }
+    pub fn y(self: Vec3) f64 {
+        return self.n[1];
+    }
+    pub fn z(self: Vec3) f64 {
+        return self.n[2];
+    }
+
     pub fn new(n1: f64, n2: f64, n3: f64) Vec3 {
         return Vec3{ .n = [3]f64{ n1, n2, n3 } };
     }
@@ -55,6 +66,18 @@ pub const Vec3 = struct {
     }
     pub fn len(self: Vec3) f64 {
         return std.math.sqrt(self.n[0] * self.n[0] + self.n[1] * self.n[1] + self.n[2] * self.n[2]);
+    }
+
+    pub fn abs(self: Vec3) Vec3 {
+        var rval = Vec3.new(
+            self.n[0],
+            self.n[1],
+            self.n[2],
+        );
+        for (0..3) |i| {
+            if (rval.n[i] < 0) rval.n[i] *= -1;
+        }
+        return rval;
     }
 
     pub fn toInt(self: Vec3) [3]u8 {
